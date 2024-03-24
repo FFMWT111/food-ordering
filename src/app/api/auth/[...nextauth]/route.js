@@ -12,7 +12,7 @@ export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
-      // name: "google",
+      name: "google",
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
