@@ -44,7 +44,7 @@ export async function GET(req, res) {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     if (!email) {
-      return Response.json({});
+      return Response.json();
     }
     filterUser = { email };
   }
