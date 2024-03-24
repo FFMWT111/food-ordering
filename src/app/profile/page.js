@@ -1,12 +1,9 @@
 "use client";
+
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import UserTabs from "../component/layout/UserTabs";
 import UserForm from "../component/layout/UserForm";
-import { Suspense } from "react";
-import InfoBox from "../component/layout/InfoBox";
-import SuccessBox from "../component/layout/SuccessBox";
-import EditableImage from "../component/layout/EditableImage";
 
 export default function ProfilePage() {
   const session = useSession();
@@ -14,15 +11,29 @@ export default function ProfilePage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [profileFetched, setProfileFetched] = useState(false);
 
+  console.log(session);
+
   const { status } = session;
 
   useEffect(() => {
     if (status === "authenticated") {
-      fetch("/api/profile").then((res) => {
-        res.json().then((data) => {
-          setUser(data), setIsAdmin(data.admin), setProfileFetched(true);
+      console.log("111111111111111111111111111");
+      fetch("/api/profile")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "99999999999999999999999");
+          // setUser(data.data);
+          // setIsAdmin(data.data.admin);
+          // setProfileFetched(true);
         });
-      });
+
+      // fetch("/api/profile").then((response) => {
+      //   response.json().then((data) => {
+      //     setUser(data);
+      //     setIsAdmin(data.admin);
+      //     setProfileFetched(true);
+      //   });
+      // });
     }
   }, [session, status]);
 

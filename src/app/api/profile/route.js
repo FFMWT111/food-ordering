@@ -1,3 +1,5 @@
+"use client";
+
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
@@ -5,7 +7,8 @@ import { User } from "../../models/User";
 import { UserInfo } from "../../models/UserInfo";
 
 export async function PUT(req) {
-  mongoose.connect(process.env.MONGODB_URI);
+  const mongoUrl = process.env.MONGODB_URI;
+  mongoose.connect(mongoUrl);
   const data = await req.json();
   const { _id, name, image, ...otherUserInfo } = data;
 
@@ -23,14 +26,15 @@ export async function PUT(req) {
   await UserInfo.findOneAndUpdate({ email: user.email }, otherUserInfo, {
     upsert: true,
   });
-
   return Response.json(true);
 }
 
-export async function GET(req) {
-  mongoose.connect(process.env.MONGODB_URI);
+export async function GET(req, res) {
+  const mongoUrl = process.env.MONGODB_URI;
+  mongoose.connect(mongoUrl);
 
   const url = new URL(req.url);
+  console.log(url, "666666666666666666666666");
   const _id = url.searchParams.get("_id");
 
   let filterUser = {};

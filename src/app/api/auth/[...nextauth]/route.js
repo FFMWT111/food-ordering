@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../../../models/User";
 import NextAuth from "next-auth";
@@ -30,6 +30,7 @@ export const authOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
+        console.log(email, password);
 
         mongoose.connect(process.env.MONGO_URI);
         const user = await User.findOne({ email });
