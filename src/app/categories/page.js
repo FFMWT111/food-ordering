@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useProfile } from "../component/UseProfile";
 import DeleteButton from "../component/DeleteButton";
 
-export default function categoriesPage() {
+export default function CategoriesPage() {
   const [categoryName, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
   const [editedCategory, setEditedCategory] = useState(null);

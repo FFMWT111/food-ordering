@@ -8,7 +8,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "../../../libs/mongoConnect";
 
 export const authOptions = {
-  secret: process.env.SECRET,
+  secret: process.env.AUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -31,17 +31,14 @@ export const authOptions = {
         const email = credentials?.email;
         const password = credentials?.password;
 
-        console.log(password);
-        mongoose.connect(process.env.MONGODB_URI);
-
+        mongoose.connect(process.env.MONGO_URI);
         const user = await User.findOne({ email });
         const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        console.log(password);
 
         if (passwordOk) {
           return user;
         }
+
         return null;
       },
     }),

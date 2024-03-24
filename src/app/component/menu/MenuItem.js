@@ -100,7 +100,12 @@ export default function MenuItem(menuItem) {
                   ))}
                 </div>
               )}
-              <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+              <FlyingButton
+                targetTop={"5%"}
+                targetLeft={"95%"}
+                src={image}
+                alt=""
+              >
                 <div
                   onClick={handleAddToCartButton}
                   className="primary sticky bottom-2"

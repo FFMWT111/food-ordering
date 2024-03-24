@@ -46,7 +46,7 @@ export default function CartPage() {
             cartProducts.map((product, index) => (
               <div className="flex items-center gap-4 border-b py-4">
                 <div className="w-24">
-                  <Image widt={240} height={240} src={product.image} alt={""} />
+                  <Image widt={240} height={240} src={product.image} alt="" />
                 </div>
                 <div className="grow">
                   <h3 className="font-semibold">{product.name}</h3>
