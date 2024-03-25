@@ -9,7 +9,7 @@ import Trash from "../icon/Trash";
 export default function Header() {
   const session = useSession();
   const status = session?.status;
-  const userData = session.data?.user;
+  const userData = session?.data?.user;
   let userName = userData?.name || userData?.email;
   const { cartProducts } = useContext(CartContext);
   if (userName && userName.includes(" ")) {

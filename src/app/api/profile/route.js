@@ -10,6 +10,7 @@ export async function PUT(req) {
   const mongoUrl = process.env.MONGODB_URI;
   mongoose.connect(mongoUrl);
   const data = await req.json();
+  console.log(data, "11111111111111111111111111111111111111111111");
   const { _id, name, image, ...otherUserInfo } = data;
 
   let filter = {};
@@ -26,7 +27,7 @@ export async function PUT(req) {
   await UserInfo.findOneAndUpdate({ email: user.email }, otherUserInfo, {
     upsert: true,
   });
-  return Response.json(true);
+  return Response.json();
 }
 
 export async function GET(req, res) {
