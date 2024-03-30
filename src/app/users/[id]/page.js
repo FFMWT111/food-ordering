@@ -2,7 +2,9 @@
 import { useProfile } from "../../component/UseProfile";
 import UserTabs from "../../component/layout/UserTabs";
 import UserForm from "../../component/layout/UserForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function EditUserPage() {
   const [user, setUser] = useState(null);
@@ -21,7 +23,7 @@ export default function EditUserPage() {
     e.preventDefault();
     const promise = new Promise(async (resolve, reject) => {
       const res = await fetch("/api/profile", {
-        method: "[UT",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, _id: id }),
       });

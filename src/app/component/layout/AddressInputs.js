@@ -1,9 +1,14 @@
-export default function AddressInputs({ addressProps, setAddressProps }) {
+export default function AddressInputs({
+  addressProps,
+  setAddressProps,
+  disabled = false,
+}) {
   const { phone, streetAddress, postalCode, city, country } = addressProps;
   return (
     <>
       <label>Phone</label>
       <input
+        disabled={disabled}
         type="tel"
         placeholder="Phone number"
         value={phone}

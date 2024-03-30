@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import UserTabs from "../component/layout/UserTabs";
+import { useEffect, useState } from "react";
+import { useProfile } from "../component/UseProfile";
 
 export default function UserPage() {
   const [users, setUsers] = useState([]);
@@ -28,7 +30,10 @@ export default function UserPage() {
       <div className="mt-8">
         {users?.length > 0 &&
           users.map((user) => (
-            <div className="flex items-center bg-gray-100 rounded-lg mb-2 p-1 px-4 gap-4">
+            <div
+              key={user._id}
+              className="flex items-center bg-gray-100 rounded-lg mb-2 p-1 px-4 gap-4"
+            >
               <div className="grid grid-cols-2 md:grid-cols-3 grow gap-4">
                 <div className="text-gray-900">
                   {!!user.name && <span>{user.name}</span>}

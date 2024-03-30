@@ -1,18 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import MenuItemTitle from "../../component/menu/MenuItemTitle";
-import Image from "next/image";
-// import { CartContext } from "../component/AppContext";
+import { CartContext } from "../AppContext";
+import FlyingButton from "react-flying-item";
 
 export default function MenuItem(menuItem) {
   const { image, name, description, basePrice, sizes, extraIngredientPrices } =
     menuItem;
-  const { addToCart } = useContext(CartContext);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null);
   const [selectedExtras, setSelectedExtras] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
-  async function handleAddToCartButton() {
-    const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
+  async function handleAddToCartButton(e) {
+    e.preventDefault();
+    // setShowPopup(true);
+    console.log(sizes?.length, "111111111111111111");
+    const hasOptions = sizes?.length > 0 || extraIngredientPrices?.length > 0;
     if (hasOptions && !showPopup) {
       setShowPopup(true);
       return;
@@ -22,7 +25,7 @@ export default function MenuItem(menuItem) {
     setShowPopup(false);
   }
 
-  function handleExtraThing(e) {
+  function handleExtraThing(e, extraThing) {
     const checked = e.target.checked;
     if (checked) {
       setSelectedExtras((prev) => [...prev, extraThing]);
@@ -48,7 +51,7 @@ export default function MenuItem(menuItem) {
       {showPopup && (
         <div
           onClick={() => setShowPopup(flase)}
-          className="flex items-center justify-center fixed inset-0 bg-black/80"
+          className="flex items-center justify-center fixed inset-0 bg-black/80 z-10"
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -58,7 +61,7 @@ export default function MenuItem(menuItem) {
               className="overflow-y-scroll p-2"
               style={{ maxHeight: "calc(100vh - 100px)" }}
             >
-              <Image
+              <img
                 src={image}
                 alt={name}
                 width={300}
@@ -66,14 +69,17 @@ export default function MenuItem(menuItem) {
                 className="mx-auto"
               />
               <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
-              <p className="text-center text-gray-500 text-sm mb-2">
+              <p className="text-gray-500 text-sm line-clamp-3">
                 {description}
               </p>
               {sizes?.length > 0 && (
                 <div className="p-2">
                   <h3 className="text-center text-gray-700">Pick your size</h3>
                   {sizes.map((size) => (
-                    <label className="flex items-center gap-2 p-4 border rounded-md mb-1">
+                    <label
+                      key={size._id}
+                      className="flex items-center gap-2 p-4 border rounded-md mb-1"
+                    >
                       <input
                         type="radio"
                         name="size"
@@ -104,7 +110,7 @@ export default function MenuItem(menuItem) {
                 targetTop={"5%"}
                 targetLeft={"95%"}
                 src={image}
-                alt=""
+                alt="image"
               >
                 <div
                   onClick={handleAddToCartButton}
@@ -113,7 +119,7 @@ export default function MenuItem(menuItem) {
                   Add to cart ${selectedPrice}
                 </div>
               </FlyingButton>
-              <button onClick={() => setShowPopup(flase)} className="mt-2">
+              <button onClick={() => setShowPopup(false)} className="mt-2">
                 Cancel
               </button>
             </div>

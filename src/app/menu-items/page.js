@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UserTabs from "../component/layout/UserTabs";
 import Link from "next/link";
+import { useProfile } from "../component/UseProfile";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
 export default function MenuItemPage() {
   const [menuItems, setMenuItems] = useState([]);
@@ -30,7 +32,7 @@ export default function MenuItemPage() {
       <div className="mt-8">
         <Link href={"/menu-items/new"} className="button flex">
           <span>Create new menu item</span>
-          <Right />
+          <ArrowRightCircleIcon className="w-6 h-6" />
         </Link>
       </div>
       <div>
@@ -39,13 +41,14 @@ export default function MenuItemPage() {
           {menuItems?.length > 0 &&
             menuItems.map((item) => (
               <Link
-                href={"/menu-items/edit" + item._id}
+                key={item._id}
+                href={"/menu-items/edit/" + item._id}
                 className="bg-gray-200 rounded-lg p-4"
               >
                 <div className="relative">
-                  <Image
+                  <img
                     src={item.image}
-                    alt={""}
+                    alt={"image"}
                     width={200}
                     height={200}
                     className="rounded-md"

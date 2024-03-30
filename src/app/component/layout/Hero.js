@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Right from "../icon/Right";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Hero() {
   return (
@@ -17,20 +16,20 @@ export default function Hero() {
         <div className="flex gap-2 justify-center items-center text-sm">
           <button className="flex items-center gap-2 bg-primary text-white rounded-full px-4 py-2 uppercase">
             Order now
-            <Right />
+            <ArrowRightCircleIcon className="w-6 h-6" />
           </button>
-          <button className="flex items-center gap-2 text-gray-600 font-semibold border-0">
+          <button className="flex items-center gap-2 text-gray-600 font-semibold border-0 text-sm ">
             Learn more
-            <Right />
+            <ArrowRightCircleIcon className="w-6 h-6" />
           </button>
         </div>
       </div>
       <div className="relative">
-        <Image
+        <img
           src={"/pizza.png"}
           alt="pizza"
           layout={"fill"}
-          objectFit={"contain"}
+          objectfit={"contain"}
         />
       </div>
     </section>

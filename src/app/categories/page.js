@@ -1,8 +1,9 @@
 "use client";
 import UserTabs from "../component/layout/UserTabs";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useProfile } from "../component/UseProfile";
 import DeleteButton from "../component/DeleteButton";
+import toast from "react-hot-toast";
 
 export default function CategoriesPage() {
   const [categoryName, setCategoryName] = useState("");
@@ -51,15 +52,16 @@ export default function CategoriesPage() {
 
   async function handleDelete(_id) {
     const promise = new Promise(async (resolve, reject) => {
-      const res = await fetch("/api/categories?_id=" + _id, {
+      const response = await fetch("/api/categories?_id=" + _id, {
         method: "DELETE",
       });
-      if (res.ok) {
+      if (response.ok) {
         resolve();
       } else {
         reject();
       }
     });
+
     await toast.promise(promise, {
       loading: "Deleting...",
       success: "Deleted",
@@ -67,7 +69,6 @@ export default function CategoriesPage() {
     });
     fetchCategories();
   }
-
   if (profileLoading) {
     return "Loading user info ...";
   }
@@ -78,9 +79,7 @@ export default function CategoriesPage() {
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      {/* <Suspense> */}
-      <UserTabs isAdmin={false} />
-      {/* </Suspense> */}
+      <UserTabs isAdmin={true} />
 
       <form className="mt-8" onSubmit={handleCategorySubmit}>
         <div className="flex gap-2 items-end">
@@ -115,7 +114,10 @@ export default function CategoriesPage() {
         <h2 className="mt-8 text-sm text-gray-500">Existing categories</h2>
         {categories?.length > 0 &&
           categories.map((c) => (
-            <div className="flex items-center gap-1 rounded-xl p-2 px-4 mb-1 bg-gray-100">
+            <div
+              key={c._id}
+              className="flex items-center gap-1 rounded-xl p-2 px-4 mb-1 bg-gray-100"
+            >
               <div className="grow">{c.name}</div>
               <div className="flex gap-1">
                 <button
@@ -130,6 +132,7 @@ export default function CategoriesPage() {
                 <DeleteButton
                   onDelete={() => handleDelete(c._id)}
                   label="Delete"
+                  type="button"
                 />
               </div>
             </div>

@@ -2,6 +2,7 @@
 import EditableImage from "../../component/layout/EditableImage";
 import { useState } from "react";
 import AddressInputs from "./AddressInputs";
+import { useProfile } from "../UseProfile";
 
 export default function UserForm({ user, onSave }) {
   const [userName, setUserName] = useState(user?.name || "");
@@ -25,7 +26,7 @@ export default function UserForm({ user, onSave }) {
   return (
     <div className="flex gap-4">
       <div>
-        <div className=" p-2 rounded-lg relative max-w-[120px]">
+        <div className="p-2 rounded-lg relative w-[150px] h-[150px]">
           <EditableImage link={image} setLink={setImage} />
         </div>
       </div>
@@ -56,7 +57,7 @@ export default function UserForm({ user, onSave }) {
           type="email"
           placeholder={"Email"}
           disabled={true}
-          value={user.email}
+          value={user?.email}
         />
         <AddressInputs
           addressProps={{ phone, streetAddress, postalCode, city, country }}
@@ -73,7 +74,7 @@ export default function UserForm({ user, onSave }) {
                 type="checkbox"
                 value={"1"}
                 checked={admin}
-                onClick={(e) => setAdmin(e.target.checked)}
+                onChange={(e) => setAdmin(e.target.checked)}
               />
               <span>Admin</span>
             </label>

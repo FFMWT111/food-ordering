@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { MenuItem } from "../../models/MenuItem";
 
 export async function POST(req) {
@@ -7,7 +8,7 @@ export async function POST(req) {
   return Response.json(menuItemDoc);
 }
 
-export async function PUT() {
+export async function PUT(req) {
   mongoose.connect(process.env.MONGODB_URI);
   const { _id, ...data } = await req.json();
   await MenuItem.findByIdAndUpdate(_id, data);

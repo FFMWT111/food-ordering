@@ -1,4 +1,3 @@
-import Image from "next/image";
 import toast from "react-hot-toast";
 
 export default function EditableImage({ link, setLink }) {
@@ -30,11 +29,11 @@ export default function EditableImage({ link, setLink }) {
   return (
     <>
       {link && (
-        <Image
+        <img
           src={link}
           alt="avatar"
-          width={250}
-          height={250}
+          width={120}
+          height={120}
           className="rounded-lg w-full h-full mb-1"
         />
       )}
@@ -45,7 +44,7 @@ export default function EditableImage({ link, setLink }) {
       )}
       <label>
         <input type="file" className="hidden" onChange={handleFileCHange} />
-        <span className="block border border-gray-300 rounded-lg p-2 text-center cursor-pointer">
+        <span className="block border text-gray-600 border-gray-300 rounded-lg p-2 text-center cursor-pointer">
           Edit
         </span>
       </label>

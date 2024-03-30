@@ -1,10 +1,12 @@
 "use client";
-import { redirect } from "next/dist/server/api-utils";
-import EditableImage from "../../component/layout/EditableImage";
+import { redirect } from "next/navigation";
 import UserTabs from "../../component/layout/UserTabs";
 import { useProfile } from "../../component/UseProfile";
-import { Suspense } from "react";
+import { useState } from "react";
 import MenuItemForm from "../../component/layout/MenuItemForm";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
 export default function NewMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
@@ -48,7 +50,7 @@ export default function NewMenuItemPage() {
       <UserTabs isAdmin={true} />
       <div className="max-w-2xl mx-auto mt-8">
         <Link href={"/menu-items"} className="button">
-          <Left />
+          <ArrowLeftCircleIcon className="w-6 h-6" />
           <span>Show all menu items</span>
         </Link>
       </div>

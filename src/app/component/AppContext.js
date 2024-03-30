@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import { createContext } from "react";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext({});
 

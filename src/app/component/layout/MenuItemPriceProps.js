@@ -1,8 +1,7 @@
-import Trash from "../icon/Trash";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import Plus from "../icon/Plus";
-import Down from "../icon/Down";
-import Up from "../icon/Up";
 import { useState } from "react";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 export default function MenuItemPriceProps({
   name,
@@ -38,14 +37,18 @@ export default function MenuItemPriceProps({
         className="inline-flex p-1 border-0 justify-start"
         type="button"
       >
-        {isOpen ? <Up /> : <Down />}
+        {isOpen ? (
+          <ChevronUpIcon className="w-6 h-6" />
+        ) : (
+          <ChevronDownIcon className="w-6 h-6" />
+        )}
         <span>{name}</span>
         <span>({props?.length})</span>
       </button>
       <div className={isOpen ? "block" : "hidden"}>
         {props?.length > 0 &&
           props.map((size, index) => (
-            <div className="flex items-end gap-2">
+            <div key={size.index} className="flex items-end gap-2">
               <div>
                 <label>Name</label>
                 <input
@@ -69,7 +72,7 @@ export default function MenuItemPriceProps({
                   className="bg-white mb-2 px-2"
                   onClick={() => removeProp(index)}
                 >
-                  <Trash />
+                  <TrashIcon className="w-6 h-6" />
                 </button>
               </div>
             </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
@@ -49,7 +48,7 @@ export default function LoginPage() {
           onClick={() => signIn("google", { callbackUrl: "/" })}
           className="flex justify-center items-center gap-4"
         >
-          <Image
+          <img
             src={"/google.png"}
             alt="Login with google"
             width={24}

@@ -1,20 +1,20 @@
 "use client";
-import { redirect } from "next/dist/server/api-utils";
-import EditableImage from "../../../component/layout/EditableImage";
 import UserTabs from "../../../component/layout/UserTabs";
 import { useProfile } from "../../../component/UseProfile";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import MenuItemForm from "../../../component/layout/MenuItemForm";
-import { resolve } from "path";
 import DeleteButton from "../../../component/DeleteButton";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
 export default function EditMenuItemPage() {
   const [menuItem, setMenuItem] = useState(null);
   const [redirectToItems, setRedirectToItems] = useState(false);
 
   const { loading, data } = useProfile();
-  const { id } = useParams;
+  const { id } = useParams();
 
   useEffect(() => {
     fetch("/api/menu-items").then((res) => {
@@ -47,8 +47,8 @@ export default function EditMenuItemPage() {
 
   async function handleDelete() {
     const promise = new Promise(async (resolve, reject) => {
-      const res = fetch("/api/menu-items?_id=" + id, {
-        method: "DELTE",
+      const res = await fetch("/api/menu-items?_id=" + id, {
+        method: "DELETE",
       });
       if (res.ok) {
         resolve();
@@ -81,14 +81,18 @@ export default function EditMenuItemPage() {
       <UserTabs isAdmin={true} />
       <div className="max-w-2xl mx-auto mt-8">
         <Link href={"/menu-items"} className="button">
-          <Left />
+          <ArrowLeftCircleIcon className="w-6 h-6" />
           <span>Show all menu items</span>
         </Link>
       </div>
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
       <div className="max-w-md mx-auto mt-2">
         <div className="max-w-xs ml-auto pl-4">
-          <DeleteButton label="Delete this menu item" onClick={handleDelete} />
+          <DeleteButton
+            label="Delete this menu item"
+            onDelete={handleDelete}
+            type="button"
+          />
         </div>
       </div>
     </section>

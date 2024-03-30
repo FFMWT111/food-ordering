@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../../../models/User";
 import NextAuth from "next-auth";

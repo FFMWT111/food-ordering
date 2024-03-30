@@ -10,9 +10,11 @@ export default function MenuPage() {
   useEffect(() => {
     fetch("/api/categories").then((res) => {
       res.json().then((categories) => setCategories(categories));
+      console.log(categories, "44444444444444444");
     });
     fetch("/api/menu-items").then((res) => {
       res.json().then((menuItems) => setMenuItems(menuItems));
+      console.log(menuItems, "33333333333");
     });
   }, []);
 
@@ -20,7 +22,7 @@ export default function MenuPage() {
     <section className="mt-8">
       {categories?.length > 0 &&
         categories.map((c) => (
-          <div>
+          <div key={c._id}>
             <div className="text-center">
               <SectionHeaders mainHeader={c.name} />
             </div>
@@ -28,7 +30,7 @@ export default function MenuPage() {
               {menuItems
                 .filter((item) => item.category === c._id)
                 .map((item) => (
-                  <MenuItem {...item} />
+                  <MenuItem {...item} key={item._id} />
                 ))}
             </div>
           </div>

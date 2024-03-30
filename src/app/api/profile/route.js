@@ -1,6 +1,4 @@
-"use client";
-
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { User } from "../../models/User";
@@ -9,8 +7,8 @@ import { UserInfo } from "../../models/UserInfo";
 export async function PUT(req) {
   const mongoUrl = process.env.MONGODB_URI;
   mongoose.connect(mongoUrl);
+
   const data = await req.json();
-  console.log(data, "11111111111111111111111111111111111111111111");
   const { _id, name, image, ...otherUserInfo } = data;
 
   let filter = {};
@@ -27,15 +25,15 @@ export async function PUT(req) {
   await UserInfo.findOneAndUpdate({ email: user.email }, otherUserInfo, {
     upsert: true,
   });
-  return Response.json();
+
+  return Response.json(true);
 }
 
-export async function GET(req, res) {
+export async function GET(req) {
   const mongoUrl = process.env.MONGODB_URI;
   mongoose.connect(mongoUrl);
 
   const url = new URL(req.url);
-  console.log(url, "666666666666666666666666");
   const _id = url.searchParams.get("_id");
 
   let filterUser = {};
@@ -45,7 +43,7 @@ export async function GET(req, res) {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     if (!email) {
-      return Response.json();
+      return Response.json({});
     }
     filterUser = { email };
   }
@@ -54,4 +52,7 @@ export async function GET(req, res) {
   const userInfo = await UserInfo.findOne({ email: user.email }).lean();
 
   return Response.json({ ...user, ...userInfo });
+  // const session = await getServerSession(authOptions);
+  // const email = session?.user?.email;
+  // return Response.json(await User.findOne({ email }));
 }
