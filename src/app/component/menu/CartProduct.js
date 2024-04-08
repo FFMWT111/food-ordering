@@ -33,11 +33,7 @@ export default function CartProduct({ product, onRemove }) {
       <div className="text-lg font-semibold">${cartProductPrice(product)}</div>
       {!!onRemove && (
         <div className="ml-2">
-          <button
-            type="button"
-            onClick={(index) => onRemove(index)}
-            className="p-2"
-          >
+          <button type="button" onClick={() => onRemove(index)} className="p-2">
             <TrashIcon className="w-6 h-6" />
           </button>
         </div>

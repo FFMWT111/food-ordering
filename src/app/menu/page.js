@@ -10,11 +10,9 @@ export default function MenuPage() {
   useEffect(() => {
     fetch("/api/categories").then((res) => {
       res.json().then((categories) => setCategories(categories));
-      console.log(categories, "44444444444444444");
     });
     fetch("/api/menu-items").then((res) => {
       res.json().then((menuItems) => setMenuItems(menuItems));
-      console.log(menuItems, "33333333333");
     });
   }, []);
 

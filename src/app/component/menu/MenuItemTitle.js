@@ -9,7 +9,7 @@ export default function MenuItemTitle({ onAddToCart, ...item }) {
 
   return (
     <div className="relative mx-auto bg-gray-200 shadow-md hover:bg-white hover:shadow-md hover:shadow-black/25 p-4 rounded-lg text-center transition-all min-h-[350px]">
-      <div className="p-2 max-w-60 max-h-44 mx-auto overflow-hidden">
+      <div className="p-1 max-w-60 max-h-40 mx-auto overflow-hidden">
         <img
           src={image}
           alt="pizza"
@@ -17,7 +17,7 @@ export default function MenuItemTitle({ onAddToCart, ...item }) {
         />
       </div>
       <div>
-        <h4 className="text-xl font-semibold my-2 text-clip overflow-hidden leading-5">
+        <h4 className="text-xl font-semibold my-2 text-clip overflow-hidden leading-5 h-[43px]">
           {name}
         </h4>
         <p className="text-gray-500 text-sm line-clamp-3 h-[43px] text-clip overflow-hidden">

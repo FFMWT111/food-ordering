@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { SessionProvider } from "next-auth/react";
-import { createContext } from "react";
 import toast from "react-hot-toast";
 
 export const CartContext = createContext({});
@@ -22,6 +21,7 @@ export function cartProductPrice(cartProduct) {
 
 export function AppProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
+
   const ls = typeof window !== "undefined" ? window.localStorage : null;
 
   useEffect(() => {
@@ -30,20 +30,20 @@ export function AppProvider({ children }) {
     }
   }, []);
 
-  function clearCart() {
-    setCartProducts([]);
-    saveCartProductsToLocalStorage([]);
-  }
-
   function removeCartProduct(indexToRemove) {
     setCartProducts((prevCartProducts) => {
-      const newCartProducts = prevCartProducts.filter(
+      const newCartProducts = [...prevCartProducts].filter(
         (v, index) => index !== indexToRemove
       );
       saveCartProductsToLocalStorage(newCartProducts);
       return newCartProducts;
     });
     toast.success("Product removed");
+  }
+
+  function clearCart() {
+    setCartProducts([]);
+    saveCartProductsToLocalStorage([]);
   }
 
   function saveCartProductsToLocalStorage(cartProducts) {

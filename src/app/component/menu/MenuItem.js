@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import MenuItemTitle from "../../component/menu/MenuItemTitle";
 import { CartContext } from "../AppContext";
+import React from "react";
 import FlyingButton from "react-flying-item";
 
 export default function MenuItem(menuItem) {
@@ -13,8 +14,6 @@ export default function MenuItem(menuItem) {
 
   async function handleAddToCartButton(e) {
     e.preventDefault();
-    // setShowPopup(true);
-    console.log(sizes?.length, "111111111111111111");
     const hasOptions = sizes?.length > 0 || extraIngredientPrices?.length > 0;
     if (hasOptions && !showPopup) {
       setShowPopup(true);
@@ -50,7 +49,7 @@ export default function MenuItem(menuItem) {
     <>
       {showPopup && (
         <div
-          onClick={() => setShowPopup(flase)}
+          onClick={() => setShowPopup(false)}
           className="flex items-center justify-center fixed inset-0 bg-black/80 z-10"
         >
           <div
@@ -74,47 +73,54 @@ export default function MenuItem(menuItem) {
               </p>
               {sizes?.length > 0 && (
                 <div className="p-2">
-                  <h3 className="text-center text-gray-700">Pick your size</h3>
+                  <h3 className="text-center text-gray-700 font-semibold">
+                    Pick your size
+                  </h3>
                   {sizes.map((size) => (
                     <label
+                      type="button"
                       key={size._id}
-                      className="flex items-center gap-2 p-4 border rounded-md mb-1"
+                      className="flex items-center gap-2 p-4 border rounded-md mb-1 cursor-pointer text-gray-700"
                     >
                       <input
                         type="radio"
                         name="size"
                         onClick={() => setSelectedSize(size)}
-                        checked={selectedSize?.name === size.name}
+                        checked={selectedSize?.name === size?.name}
                       />
-                      {size.name} ${basePrice + size.price}
+                      <div>
+                        {size.name} ${basePrice + size.price}
+                      </div>
                     </label>
                   ))}
                 </div>
               )}
               {extraIngredientPrices?.length > 0 && (
                 <div className="p-2">
-                  <h3 className="text-center text-gray-700">Any extras?</h3>
+                  <h3 className="text-center text-gray-700 font-semibold">
+                    Any extras?
+                  </h3>
                   {extraIngredientPrices.map((extraThing) => (
-                    <label className="flex items-center gap-2 p-4 border rounded-md mb-1">
+                    <label
+                      key={extraThing._id}
+                      className="flex items-center gap-2 p-4 border rounded-md mb-1 cursor-pointer text-gray-700"
+                    >
                       <input
                         type="checkbox"
                         onClick={(e) => handleExtraThing(e, extraThing)}
                         name={extraThing.name}
                       />
-                      {extraThing.name} + ${extraThing.price}
+                      <div>
+                        {extraThing.name} + ${extraThing.price}
+                      </div>
                     </label>
                   ))}
                 </div>
               )}
-              <FlyingButton
-                targetTop={"5%"}
-                targetLeft={"95%"}
-                src={image}
-                alt="image"
-              >
+              <FlyingButton targetTop={"5%"} targetLeft={"70%"} src={image}>
                 <div
-                  onClick={handleAddToCartButton}
                   className="primary sticky bottom-2"
+                  onClick={handleAddToCartButton}
                 >
                   Add to cart ${selectedPrice}
                 </div>
